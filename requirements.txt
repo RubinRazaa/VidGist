@@ -1,0 +1,5 @@
+fastapi>=0.136
+uvicorn[standard]>=0.49
+google-genai>=2.8
+yt-dlp>=2026.3
+python-dotenv>=1.2
