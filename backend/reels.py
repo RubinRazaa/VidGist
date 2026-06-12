@@ -18,15 +18,35 @@ from pydantic import BaseModel
 
 MODEL = "gemini-2.5-flash"
 
-PROMPT = """You are summarizing a short informative Instagram reel for a written record.
+PROMPT = """ou are analyzing a short Instagram reel for a written business record.
 Watch and listen to the whole video, INCLUDING any on-screen text, captions, and graphics.
 
-Write a clear, simple explanation in plain English that covers:
-- The main topic or point of the reel
-- The key facts, steps, or claims it makes (in order, if it is a how-to)
-- Any important specifics mentioned on screen or spoken: names, numbers, tools, sources
+Respond in English using EXACTLY this structure:
 
-Keep it concise and easy to read. Do NOT add information that is not in the video.
+Title: <short descriptive title for the reel>
+
+Translation (English – Exact):
+"<a faithful, complete English transcription of everything spoken in the video, in order.
+If the video is not in English, translate it exactly. Weave in important on-screen text.
+Keep the speaker's wording — do not paraphrase, shorten, or skip parts.>"
+
+Summary:
+<2–4 sentences: what the video is about and its main message>
+
+Useful for the company?: <Yes/No> (<category, e.g. Strategic / Technical / Marketing / Governance & Risk>).
+<one sentence on why it is or is not useful for a business>
+
+Departments that benefit:
+* <Department> – <how it benefits>
+<3–6 bullets; write "None" if not useful>
+
+Key Insight:
+* <takeaway>
+<4–7 short bullets with the most important takeaways>
+
+Rules:
+- Base everything ONLY on the video. Do NOT add outside information or fact-check claims — report what the video says.
+- If a part is inaudible or unclear, write [unclear] instead of guessing.
 """
 
 API_KEY = os.environ.get("GEMINI_API_KEY")
