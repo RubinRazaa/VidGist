@@ -1,0 +1,19 @@
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Next.js / Node
+web/node_modules/
+web/.next/
+web/out/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.claude/
+*.swp
+*.swo
