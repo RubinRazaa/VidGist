@@ -9,10 +9,10 @@ Google's Gemini and never stored.
 ```
 VidGist/
 ├── backend/
-│   └── reels.py        FastAPI JSON API (download + Gemini)
+│   └── reels.py        FastAPI JSON API 
 ├── web/                Next.js frontend (App Router + TypeScript)
 ├── requirements.txt    Python dependencies
-├── .env                Your GEMINI_API_KEY (not committed)
+├── .env                Your GEMINI_API_KEY 
 └── .env.example        Template for .env
 ```
 
