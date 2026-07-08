@@ -18,7 +18,7 @@ from pydantic import BaseModel
 
 MODEL = "gemini-2.5-flash"
 
-PROMPT = """ou are analyzing a short Instagram reel for a written business record.
+PROMPT = """You are analyzing a short Instagram reel for a written business record.
 Watch and listen to the whole video, INCLUDING any on-screen text, captions, and graphics.
 
 Respond in English using EXACTLY this structure:
