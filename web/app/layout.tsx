@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "VidGist",
   description:
-    "Paste an Instagram reel and read what it's about — without watching it.",
+    "Paste an Instagram or TikTok link and read what it's about — without watching it.",
 };
 
 export default function RootLayout({

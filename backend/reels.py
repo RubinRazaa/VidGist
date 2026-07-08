@@ -4,6 +4,7 @@ import time
 import asyncio
 import tempfile
 from pathlib import Path
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 
@@ -18,12 +19,12 @@ from pydantic import BaseModel
 
 MODEL = "gemini-2.5-flash"
 
-PROMPT = """You are analyzing a short Instagram reel for a written business record.
+PROMPT = """You are analyzing a short social video for a written business record.
 Watch and listen to the whole video, INCLUDING any on-screen text, captions, and graphics.
 
 Respond in English using EXACTLY this structure:
 
-Title: <short descriptive title for the reel>
+Title: <short descriptive title for the video>
 
 Translation (English – Exact):
 "<a faithful, complete English transcription of everything spoken in the video, in order.
@@ -148,18 +149,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+SUPPORTED_DOMAINS = ("instagram.com", "tiktok.com")
+
 
 class ExplainRequest(BaseModel):
     url: str
 
 
+def is_supported_video_url(url):
+    parsed = urlparse(url if "://" in url else f"https://{url}")
+    hostname = (parsed.hostname or "").lower()
+    return any(
+        hostname == domain or hostname.endswith(f".{domain}")
+        for domain in SUPPORTED_DOMAINS
+    )
+
+
 @app.post("/api/explain")
 async def api_explain(req: ExplainRequest):
     url = (req.url or "").strip()
-    if "instagram.com" not in url:
+    if not is_supported_video_url(url):
         return JSONResponse(
             status_code=400,
-            content={"error": "Paste a valid Instagram reel URL (it should contain instagram.com)."},
+            content={"error": "Paste a valid Instagram or TikTok video URL."},
         )
     try:
         explanation = await asyncio.to_thread(explain_url, url)
@@ -175,9 +187,9 @@ async def api_explain(req: ExplainRequest):
             )
         elif "login" in low or "forbidden" in low or "rate-limit" in low or "private" in low:
             hint = (
-                "This reel needs a logged-in session. Add a "
+                "This video needs a logged-in session. Add a "
                 "cookiesfrombrowser entry to ydl_opts in reels.py pointing to a "
-                "browser where you're logged into Instagram."
+                "browser where you're logged into that platform."
             )
         else:
             hint = "If downloads stopped working in general, update the downloader: pip install -U yt-dlp"

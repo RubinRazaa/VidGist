@@ -86,7 +86,7 @@ export default function Home() {
 
       <main className="main">
         <section className="hero">
-          <h1>What&apos;s this reel actually saying?</h1>
+          <h1>What&apos;s this video actually saying?</h1>
           <p className="lead">
             Drop in a link and you&apos;ll get a short write-up of what happens —
             the words spoken out loud and the text on screen, all in one place.
@@ -99,7 +99,7 @@ export default function Home() {
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste an Instagram reel link"
+            placeholder="Paste an Instagram or TikTok link"
             autoComplete="off"
             spellCheck={false}
             disabled={loading}
@@ -110,7 +110,7 @@ export default function Home() {
           </button>
         </form>
         <p className="note">
-          Public reels just work. If it&apos;s private or really long, you might
+          Public videos just work. If it&apos;s private or really long, you might
           need to be logged in.
         </p>
 
@@ -144,7 +144,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="footer-inner">
-          We pull the reel down just long enough to read it, then it&apos;s gone.
+          We pull the video down just long enough to read it, then it&apos;s gone.
           Nothing gets saved.
         </div>
       </footer>

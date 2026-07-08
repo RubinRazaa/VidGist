@@ -1,8 +1,8 @@
 # VidGist
 
-Paste an Instagram reel link and get a clear, written explanation of it — the
-spoken audio *and* the on-screen text — without watching it. The reel is read by
-Google's Gemini and never stored.
+Paste an Instagram reel or TikTok link and get a clear, written explanation of
+it — the spoken audio *and* the on-screen text — without watching it. The video
+is read by Google's Gemini and never stored.
 
 ## Structure
 
@@ -61,11 +61,11 @@ Then open **http://localhost:3000**.
 
 ## Notes
 
-- **ffmpeg** is not required — the backend downloads reels as a single
-  combined file. (Only needed for the rare reel served as separate streams.)
+- **ffmpeg** is not required — the backend downloads videos as a single
+  combined file. (Only needed for the rare video served as separate streams.)
 - If Gemini returns a 503 ("high demand"), the backend retries automatically
   with backoff. Sustained busy spells: wait a minute and retry.
-- Private or rate-limited reels need a logged-in session: add a
+- Private or rate-limited videos need a logged-in session: add a
   `cookiesfrombrowser` entry to `ydl_opts` in `backend/reels.py`.
 
 ## Requirements
@@ -96,17 +96,17 @@ Gemini is temporarily overloaded. The backend already retries a few times — if
 it still fails, wait a minute and try again.
 
 **"ffmpeg is not installed" while downloading**
-That specific reel is served as separate audio/video streams. Most reels are
+That specific video is served as separate audio/video streams. Most videos are
 not. Install ffmpeg if you hit it often (`brew install ffmpeg` on macOS).
 
-**"login required" / "forbidden" / private reel**
-The reel needs an Instagram session. In `backend/reels.py`, add a
+**"login required" / "forbidden" / private video**
+The video needs a logged-in session for that platform. In `backend/reels.py`, add a
 `cookiesfrombrowser` entry to `ydl_opts` in `download_reel()`, e.g.
 `"cookiesfrombrowser": ("firefox",)` (point it at a browser where you're logged
-into Instagram — Firefox is the most reliable).
+into Instagram or TikTok — Firefox is often the most reliable).
 
 **Downloads suddenly stopped working**
-Instagram changed something. Update the downloader:
+Instagram or TikTok changed something. Update the downloader:
 ```bash
 .venv/bin/pip install -U yt-dlp
 ```
